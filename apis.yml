@@ -1,0 +1,70 @@
+aid: webinarjam
+name: WebinarJam
+description: >-
+  WebinarJam is a live webinar platform for marketing, training, and sales
+  events, while its sibling product EverWebinar provides automated and
+  evergreen webinar replays. Both products share a REST API that lets
+  integrators retrieve webinars, register attendees, manage registrants, and
+  drive marketing automations. The WebinarJam/EverWebinar API uses an API key
+  (requiring approval) included in request payloads, with separate base paths
+  for each product family.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Webinars
+  - Marketing
+  - Live Events
+  - Automated Webinars
+  - Lead Generation
+  - SaaS
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/webinarjam/refs/heads/main/apis.yml
+created: '2026-05-11'
+modified: '2026-05-11'
+specificationVersion: '0.19'
+apis:
+  - aid: webinarjam:api
+    name: WebinarJam API
+    description: >-
+      REST API for managing WebinarJam live webinars, retrieving schedules,
+      and registering attendees. Authenticated via an API key obtained after
+      approval, transmitted in the request body over SSL.
+    humanURL: https://documentation.webinarjam.com/category/webinarjam-api
+    baseURL: https://api.webinarjam.com/webinarjam
+    tags:
+      - Webinars
+      - Live Events
+    properties:
+      - type: Documentation
+        url: https://documentation.webinarjam.com/category/webinarjam-api
+  - aid: webinarjam:everwebinar-api
+    name: EverWebinar API
+    description: >-
+      REST API for managing EverWebinar automated and evergreen webinars,
+      schedules, and registrations. Shares the same API key authentication
+      pattern as WebinarJam.
+    humanURL: https://documentation.webinarjam.com/category/everwebinar-api
+    baseURL: https://api.webinarjam.com/everwebinar
+    tags:
+      - Automated Webinars
+      - Evergreen Webinars
+    properties:
+      - type: Documentation
+        url: https://documentation.webinarjam.com/category/everwebinar-api
+
+common:
+  - type: Website
+    url: https://www.webinarjam.com
+  - type: Documentation
+    url: https://documentation.webinarjam.com
+  - type: Pricing
+    url: https://www.webinarjam.com/pricing
+  - type: Sign Up
+    url: https://www.webinarjam.com/signup
+  - type: Support
+    url: https://support.webinarjam.com
+  - type: API Key Application
+    url: https://support.webinarjam.com/support/solutions/articles/153000168623-apply-for-a-webinarjam-everwebinar-api-key
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
