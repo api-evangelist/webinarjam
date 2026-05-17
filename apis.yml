@@ -59,7 +59,7 @@ common:
     url: https://documentation.webinarjam.com
   - type: Pricing
     url: https://www.webinarjam.com/pricing
-  - type: Sign Up
+  - type: SignUp
     url: https://www.webinarjam.com/signup
   - type: Support
     url: https://support.webinarjam.com
