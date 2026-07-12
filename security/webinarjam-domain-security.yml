@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.webinarjam.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 12 14:00:39 2026 GMT
+  hsts: false
+- host: documentation.webinarjam.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  4 11:32:47 2026 GMT
+  hsts: true
+  hsts_max_age: 15552000
+- host: api.webinarjam.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 18:06:57 2026 GMT
+  hsts: null
+domains:
+- domain: webinarjam.com
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none

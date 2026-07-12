@@ -53,6 +53,8 @@ apis:
         url: https://documentation.webinarjam.com/category/everwebinar-api
 
 common:
+  - type: DomainSecurity
+    url: security/webinarjam-domain-security.yml
   - type: Website
     url: https://www.webinarjam.com
   - type: Documentation
@@ -65,6 +67,8 @@ common:
     url: https://support.webinarjam.com
   - type: API Key Application
     url: https://support.webinarjam.com/support/solutions/articles/153000168623-apply-for-a-webinarjam-everwebinar-api-key
+  - url: https://www.webinarjam.com/blog
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
