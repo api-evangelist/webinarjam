@@ -1,0 +1,14 @@
+{
+  "repo": "webinarjam",
+  "feeds": [
+    {
+      "source": "https://www.webinarjam.com/blog",
+      "feed_url": "https://webinarjam.com/feed/",
+      "title": "",
+      "saved": 2,
+      "method": "discovered"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 11
+}
