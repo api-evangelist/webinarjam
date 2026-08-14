@@ -3,83 +3,160 @@ name: WebinarJam
 description: >-
   WebinarJam is a live webinar platform for marketing, training, and sales
   events, while its sibling product EverWebinar provides automated and
-  evergreen webinar replays. Both products share a REST API that lets
-  integrators retrieve webinars, register attendees, manage registrants, and
-  drive marketing automations. The WebinarJam/EverWebinar API uses an API key
-  (requiring approval) included in request payloads, with separate base paths
-  for each product family.
+  evergreen webinar replays. Both are published by Genesis Digital LLC and
+  share one REST API that lets integrators list webinars, read webinar detail
+  including schedules, presenters and custom registration fields, register
+  attendees, pull registrant and attendee analytics, and unsubscribe leads.
+  Every operation is a POST carrying a single account-wide 64-character
+  api_key form field over TLS, with separate /webinarjam and /everwebinar base
+  paths on api.webinarjam.com. API access requires a paid subscription plus an
+  application approved by WebinarJam. No OpenAPI, AsyncAPI, MCP server or SDK
+  is published; the reference is a human help centre and outbound custom
+  webhooks are the only event surface.
 type: Index
 accessModel:
-  pricing: unknown
-  onboarding: unknown
-  trial: false
+  pricing: paid
+  onboarding: request
+  trial: true
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Paid with approval-gated API
+  confidence: high
+  source:
+    - https://webinarjam.com/pricing/
+    - https://support.webinarjam.com/en/articles/15370143-apply-for-an-api-key-for-webinarjam-or-everwebinar
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/webinarjam.png
 tags:
   - Webinars
   - Marketing
   - Live Events
   - Automated Webinars
+  - Evergreen Webinars
   - Lead Generation
+  - Registration
+  - Video Streaming
+  - Marketing Automation
   - SaaS
 url: >-
   https://raw.githubusercontent.com/api-evangelist/webinarjam/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
   - aid: webinarjam:api
     name: WebinarJam API
     description: >-
-      REST API for managing WebinarJam live webinars, retrieving schedules,
-      and registering attendees. Authenticated via an API key obtained after
-      approval, transmitted in the request body over SSL.
-    humanURL: https://documentation.webinarjam.com/category/webinarjam-api
+      REST API for managing WebinarJam live webinars — list all webinars,
+      retrieve one webinar's schedules, presenters and custom registration
+      fields, register attendees and return their unique room links, page
+      through registrants and attendees with attendance and purchase filters,
+      and unsubscribe leads. All five operations are POST over TLS and
+      authenticate with an account-wide api_key form field obtained after
+      approval.
+    humanURL: https://support.webinarjam.com/en/collections/19655423-developer-api
     baseURL: https://api.webinarjam.com/webinarjam
     tags:
       - Webinars
       - Live Events
+      - Registration
     properties:
       - type: Documentation
-        url: https://documentation.webinarjam.com/category/webinarjam-api
+        url: https://support.webinarjam.com/en/collections/19655423-developer-api
+      - type: APIReference
+        url: https://support.webinarjam.com/en/articles/15370142-use-webinarjam-and-everwebinar-apis
+      - type: GettingStarted
+        url: >-
+          https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
   - aid: webinarjam:everwebinar-api
     name: EverWebinar API
     description: >-
-      REST API for managing EverWebinar automated and evergreen webinars,
-      schedules, and registrations. Shares the same API key authentication
-      pattern as WebinarJam.
-    humanURL: https://documentation.webinarjam.com/category/everwebinar-api
+      REST API for managing EverWebinar automated and evergreen webinars —
+      list webinars, read one webinar's detail, register attendees against a
+      specific session date and timezone, list registrants and attendees, and
+      unsubscribe leads. Shares the same approval-gated account-wide API key
+      as WebinarJam and adds timezone and date parameters on registration.
+    humanURL: https://support.webinarjam.com/en/collections/19655423-developer-api
     baseURL: https://api.webinarjam.com/everwebinar
     tags:
       - Automated Webinars
       - Evergreen Webinars
+      - Registration
     properties:
       - type: Documentation
-        url: https://documentation.webinarjam.com/category/everwebinar-api
+        url: https://support.webinarjam.com/en/collections/19655423-developer-api
+      - type: APIReference
+        url: https://support.webinarjam.com/en/articles/15370142-use-webinarjam-and-everwebinar-apis
+      - type: GettingStarted
+        url: >-
+          https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
 
 common:
+  - type: Website
+    url: https://webinarjam.com
+  - type: DeveloperPortal
+    url: https://support.webinarjam.com/en/collections/19655423-developer-api
+  - type: Documentation
+    url: https://support.webinarjam.com/en/
+  - type: APIReference
+    url: https://support.webinarjam.com/en/articles/15370142-use-webinarjam-and-everwebinar-apis
+  - type: GettingStarted
+    url: >-
+      https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+  - type: Support
+    url: https://support.webinarjam.com/en/
+  - type: Blog
+    url: https://webinarjam.com/blog/
+  - type: Pricing
+    url: https://webinarjam.com/pricing/
+  - type: SignUp
+    url: https://webinarjam.com/14-day-trial-checkout/
+  - type: Login
+    url: https://app.webinarjam.com/
+  - type: TermsOfService
+    url: https://webinarjam.com/terms/
+  - type: PrivacyPolicy
+    url: https://webinarjam.com/privacy-policy/
+  - type: Compliance
+    url: >-
+      https://support.webinarjam.com/en/articles/15370067-understand-account-security-and-technology
+  - type: StatusPage
+    url: https://status.webinarjam.com/
+  - type: API Key Application
+    url: >-
+      https://support.webinarjam.com/en/articles/15370143-apply-for-an-api-key-for-webinarjam-or-everwebinar
+  - type: LLMsTxt
+    url: llms/webinarjam-llms.txt
+  - type: Authentication
+    url: authentication/webinarjam-authentication.yml
+  - type: RateLimits
+    url: rate-limits/webinarjam-rate-limits.yml
+  - type: Plans
+    url: plans/webinarjam-plans-pricing.yml
+  - type: Conventions
+    url: conventions/webinarjam-conventions.yml
+  - type: ErrorCatalog
+    url: errors/webinarjam-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/webinarjam-lifecycle.yml
+  - type: Webhooks
+    url: asyncapi/webinarjam-webhooks.yml
+  - type: Packages
+    url: packages/webinarjam-packages.yml
+  - type: Conformance
+    url: conformance/webinarjam-conformance.yml
+  - type: DataModel
+    url: data-model/webinarjam-data-model.yml
+  - type: AgentSkill
+    url: skills/_index.yml
   - type: DomainSecurity
     url: security/webinarjam-domain-security.yml
-  - type: Website
-    url: https://www.webinarjam.com
-  - type: Documentation
-    url: https://documentation.webinarjam.com
-  - type: Pricing
-    url: https://www.webinarjam.com/pricing
-  - type: Signup
-    url: https://www.webinarjam.com/signup
-  - type: Support
-    url: https://support.webinarjam.com
-  - type: API Key Application
-    url: https://support.webinarjam.com/support/solutions/articles/153000168623-apply-for-a-webinarjam-everwebinar-api-key
-  - url: https://www.webinarjam.com/blog
-    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v1
