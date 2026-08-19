@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.webinarjam.com/en/articles/15370067-understand-account-security-and-technology
+standards:
+  - id: openapi
+    conforms: false
+    evidence: >-
+      No OpenAPI/Swagger document exists. /openapi.json, /openapi.yaml, /swagger.json,
+      /api-docs, /docs and /v1/openapi.json were probed on api.webinarjam.com,
+      www.webinarjam.com and documentation.webinarjam.com — all 404.
+  - id: asyncapi
+    conforms: false
+    evidence: No AsyncAPI document; the webhook surface is documented in prose only.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      Authentication is a single account-wide API key sent as a form field. No OAuth flows,
+      no authorization server, no /.well-known/oauth-authorization-server.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration 404s on every host.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: No application/problem+json; no documented error body shape at all.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 (website/docs) and 403 (API host).
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No deprecation policy or Sunset/Deprecation header support is published.
+  - id: rest-http-semantics
+    conforms: false
+    evidence: >-
+      Every operation is POST, including reads (list webinars, get webinar, list registrants).
+      A GET against a documented path returns 405. Safe/idempotent method semantics are not honored.
+  - id: tls
+    conforms: true
+    evidence: >-
+      "Connections to the API server must be secured with SSL. Non-SSL connections will be
+      dropped." TLSv1.3 observed on api.webinarjam.com — see security/webinarjam-domain-security.yml.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency key or retry-safe contract is documented.
+  - id: pagination
+    conforms: partial
+    evidence: >-
+      A bare `page` integer on the registrants operation only. No page size, no totals, no
+      cursor, no link headers.
+  - id: gdpr
+    conforms: claimed
+    evidence: >-
+      Genesis Digital publishes a GDPR policy page (https://webinarjam.com/gdprpolicy/) and the
+      platform ships cookie consent banners, agreement checkboxes and unsubscribe links. The
+      registrants API returns gdpr_status, gdpr_communications, gdpr_status_date and
+      gdpr_status_ip fields, so consent state is exposed through the API.
+  - id: pci-dss
+    conforms: claimed
+    evidence: >-
+      "WebinarJam and EverWebinar are sold via Kartra — fully compliant with PCI and SCA
+      requirements." Payment processing is delegated to Kartra; this is a delegated claim, not
+      a WebinarJam certification.
+  - id: psd2-sca
+    conforms: claimed
+    evidence: Same source as PCI — SCA compliance is asserted through the Kartra payment path.
+certifications_named: []
+certifications_note: >-
+  NO third-party audit certification is published — no SOC 2, ISO 27001, HIPAA, FedRAMP or
+  CSA STAR. trust.webinarjam.com does not resolve. The security posture WebinarJam publishes
+  is a narrative help-centre article naming its infrastructure vendors (Cloudflare Enterprise,
+  AWS, SendGrid, Twilio, Firebase, Kartra) plus PCI/SCA-by-delegation and GDPR.
+compliance_pages:
+  - https://support.webinarjam.com/en/articles/15370067-understand-account-security-and-technology
+  - https://webinarjam.com/gdprpolicy/
+  - https://webinarjam.com/privacy-policy/
+x-evidence:
+  - {url: "https://support.webinarjam.com/en/articles/15370067-understand-account-security-and-technology.md", status: 200}
+  - {url: "https://webinarjam.com/gdprpolicy/", status: 200}
+  - {url: "https://api.webinarjam.com/openapi.json", status: 404}
+  - {url: "https://trust.webinarjam.com/", status: 0, note: does not resolve}

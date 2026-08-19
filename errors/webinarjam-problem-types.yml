@@ -1,0 +1,50 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.webinarjam.com/en/collections/19655423-developer-api
+format: proprietary
+format_note: >-
+  NOT RFC 9457. WebinarJam publishes no error reference, no error-code registry and no
+  problem-details media type. The two status codes below are the ONLY ones stated anywhere
+  in the provider's developer documentation; everything else an integrator meets in
+  production is undocumented. This artifact records that scarcity honestly rather than
+  inventing a catalogue.
+envelope:
+  success_shape: '{"status": "success", "<payload>": ...}'
+  error_shape: not documented
+  note: >-
+    The success envelope carries a `status` field whose documented value is "success".
+    No failure value, no error code field and no message field is documented, so a client
+    cannot be told from the docs how to distinguish a failure body from a success body.
+problems:
+  - status: 429
+    title: Too many requests
+    detail: >-
+      Returned when a caller exceeds the hardcoded limit of 20 API calls per second per user.
+    remediation: >-
+      Throttle outbound calls through a FIFO queue capped at 20 calls/second, as the provider
+      recommends. No Retry-After header is documented, so back-off timing must be chosen by
+      the client.
+    source: https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+    applies_to: all operations
+  - status: 204
+    title: No Content
+    detail: >-
+      Documented as the SUCCESS response of the unsubscribe operation — the lead has been
+      unsubscribed and will receive no further webinar notifications. Listed here because it
+      is the only other status code the provider names, and because a client that expects the
+      JSON success envelope on every call will mis-handle it.
+    remediation: Treat 204 from /unsubscribe as success; do not parse a body.
+    source: https://support.webinarjam.com/en/articles/15370153-unsubscribe-leads-from-a-webinar-webinarjam-api
+    applies_to:
+      - POST https://api.webinarjam.com/webinarjam/unsubscribe
+      - POST https://api.webinarjam.com/everwebinar/unsubscribe
+undocumented:
+  - Validation failures on required fields (api_key, webinar_id, first_name, email, schedule)
+  - Authentication failure / unapproved or revoked API key
+  - Registration failure when the `date` parameter does not match a valid returned schedule
+    (the EverWebinar register article warns this will fail but does not say with what status)
+  - Any 5xx class
+gaps:
+  - No machine-readable error catalogue.
+  - No stable error codes — nothing an agent can branch on other than the HTTP status.
+  - No documented error body shape.

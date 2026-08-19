@@ -1,0 +1,52 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.webinarjam.com/en/collections/19655423-developer-api
+versioning:
+  scheme: none
+  current: null
+  docs: null
+  note: >-
+    No API version is published. Base paths are https://api.webinarjam.com/webinarjam and
+    https://api.webinarjam.com/everwebinar with no version segment, header or date pin, so
+    a consumer has no way to hold a contract steady across provider changes.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header support, and no advance-notice
+    commitment is published. No `Deprecation` pointer is emitted in apis.yml.
+status_page:
+  url: https://status.webinarjam.com/
+  history: https://status.webinarjam.com/history
+  subscribe: email and SMS incident notifications
+  verified: '2026-08-13'
+  http_status: 200
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime commitment. The help centre describes a high-availability
+    architecture (duplicated systems, automatic failover, multiple daily database backups)
+    but attaches no numeric target.
+  source: https://support.webinarjam.com/en/articles/15370067-understand-account-security-and-technology
+changelog:
+  url: null
+  note: >-
+    No dated API changelog or release-notes surface was found. status.webinarjam.com/history
+    is an incident history, not a change log, so no `ChangeLog` pointer is emitted.
+documentation_migration:
+  observed: '2026-08-13'
+  detail: >-
+    The developer reference has MOVED. documentation.webinarjam.com and the older
+    support.webinarjam.com/support/solutions/... Freshdesk URLs now 301 to an Intercom help
+    centre at support.webinarjam.com/en/collections/19655423-developer-api. Old links still
+    resolve through redirects; apis.yml has been repointed at the canonical Intercom URLs.
+deprecated_operations: []
+x-evidence:
+  - url: https://status.webinarjam.com/
+    status: 200
+  - url: https://documentation.webinarjam.com
+    status: 200
+    note: redirects to https://support.webinarjam.com/en/collections/19655423-developer-api

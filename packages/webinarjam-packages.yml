@@ -1,0 +1,120 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry, RubyGems API, Packagist, PyPI, crates.io, GitHub code search, plus the
+  WebinarJam developer help centre
+official_sdk_count: 0
+finding: >-
+  WebinarJam publishes NO first-party client library in any language. Every package below is
+  third-party — community wrappers, marketplace connectors, or automation-platform nodes.
+  Because no official SDK exists, NO `SDKs` pointer is emitted in apis.yml; only `Packages`.
+  The provider's own developer articles ship raw `curl` examples and nothing else.
+registries_checked:
+  - {registry: npm, query: webinarjam, first_party_hits: 0}
+  - {registry: pypi, query: webinarjam, first_party_hits: 0, note: "pypi.org/pypi/webinarjam/json returned 404"}
+  - {registry: rubygems, query: webinarjam, first_party_hits: 0}
+  - {registry: packagist, query: webinarjam, first_party_hits: 0}
+  - {registry: crates.io, query: webinarjam, first_party_hits: 0}
+  - {registry: nuget, query: webinarjam, first_party_hits: 0}
+  - {registry: maven-central, query: webinarjam, first_party_hits: 0}
+  - {registry: github, query: "webinarjam in:name", note: "32 repositories, no api-evangelist-verified vendor org; api.github.com/orgs/webinarjam returns 404 — WebinarJam has no GitHub organization"}
+packages:
+  - language: javascript
+    registry: npm
+    name: n8n-nodes-webinarjam
+    url: https://www.npmjs.com/package/n8n-nodes-webinarjam
+    install: npm install n8n-nodes-webinarjam
+    official: false
+    maintainer: xAL95 (community)
+    repository: https://github.com/xAL95/n8n-nodes-webinarjam
+    version: 1.0.6
+    published: '2026-04-03'
+    note: >-
+      n8n community node — register attendees and handle webinar data inside n8n workflows.
+      The most recently maintained WebinarJam package in any registry.
+  - language: javascript
+    registry: npm
+    name: "@ivanlaomarketing/n8n-nodes-webinarjam"
+    url: https://www.npmjs.com/package/@ivanlaomarketing/n8n-nodes-webinarjam
+    install: npm install @ivanlaomarketing/n8n-nodes-webinarjam
+    official: false
+    maintainer: ivanlaomarketing (community)
+    repository: https://github.com/ivanlaomarketing/n8n-nodes-webinarjam
+    version: 1.0.0
+    published: '2026-03-02'
+    note: Second, independent n8n community node — register attendees, list webinars, get registrants.
+  - language: javascript
+    registry: npm
+    name: "@pipedream/webinarjam"
+    url: https://www.npmjs.com/package/@pipedream/webinarjam
+    install: npm install @pipedream/webinarjam
+    official: false
+    maintainer: Pipedream (third-party platform)
+    repository: null
+    version: 0.6.0
+    published: '2025-02-19'
+    note: Pipedream platform components, published by Pipedream rather than by WebinarJam.
+  - language: ruby
+    registry: rubygems
+    name: webinarjam_api
+    url: https://rubygems.org/gems/webinarjam_api
+    install: gem install webinarjam_api
+    official: false
+    maintainer: jzntam (community)
+    repository: https://github.com/jzntam/webinarjam_api
+    version: 1.0.2
+    published: '2015-11-15'
+    note: >-
+      Abandoned. Last release 2015 — it predates the current api.webinarjam.com surface by
+      roughly a decade and cannot be assumed to match the documented endpoints.
+  - language: php
+    registry: packagist
+    name: ciaranpflanagan/webinarjam-api
+    url: https://packagist.org/packages/ciaranpflanagan/webinarjam-api
+    install: composer require ciaranpflanagan/webinarjam-api
+    official: false
+    maintainer: ciaranpflanagan (community)
+    repository: https://github.com/ciaranpflanagan/WebinarJamApi
+    version: v1.0.1
+    published: '2021-04-12'
+    note: Laravel wrapper. No release in over four years.
+  - language: php
+    registry: packagist
+    name: joseayram/webinarjam
+    url: https://packagist.org/packages/joseayram/webinarjam
+    install: composer require joseayram/webinarjam
+    official: false
+    maintainer: joseayram (community)
+    repository: https://github.com/joseayram/webinarjam
+    version: 1.0.2
+    published: '2019-12-05'
+    note: PHP >= 7.0 integration. Abandoned.
+  - language: php
+    registry: packagist
+    name: jeroenhekihenk/webinarjam
+    url: https://packagist.org/packages/jeroenhekihenk/webinarjam
+    install: composer require jeroenhekihenk/webinarjam
+    official: false
+    maintainer: jeroenhekihenk (community)
+    repository: https://github.com/jeroenhekihenk/webinarjam
+    version: v0.1
+    published: '2016-05-27'
+    note: Abandoned at v0.1.
+  - language: php
+    registry: packagist
+    name: sitemd/webinarjam
+    url: https://packagist.org/packages/sitemd/webinarjam
+    install: composer require sitemd/webinarjam
+    official: false
+    maintainer: SiteMD (community)
+    repository: https://github.com/SiteMD/WebinarJam
+    version: null
+    published: null
+    note: >-
+      Listed on Packagist but repo.packagist.org publishes no tagged release for it, so there
+      is no version or date to record — checked, nothing to record.
+decay_signal: >-
+  Of the eight community packages found, only the two n8n nodes have shipped in 2026. Every
+  library-shaped wrapper (Ruby, PHP) has been dormant for four to eleven years. Combined with
+  the total absence of a first-party SDK, an integrator building against WebinarJam today is
+  writing raw HTTP.

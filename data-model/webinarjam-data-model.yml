@@ -1,0 +1,159 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from the request/response field tables published in the WebinarJam and EverWebinar
+  developer articles at https://support.webinarjam.com/en/collections/19655423-developer-api —
+  there is no OpenAPI to derive from, so every entity and field below is transcribed from the
+  provider's own documented tables.
+entities:
+  - name: Webinar
+    id_field: webinar_id
+    id_type: integer
+    alternate_key:
+      field: webinar_hash
+      type: string
+      purpose: >-
+        Used to construct one-click registration links. Note this is a shareable secret in the
+        registration URL, not just a display id.
+    fields:
+      - {name: webinar_id, type: integer}
+      - {name: webinar_hash, type: string}
+      - {name: name, type: string, note: private name}
+      - {name: title, type: string, note: public title}
+      - {name: description, type: string}
+      - {name: type, type: string, enum: [Series of presentations, Single presentation, Always on, Right now], note: WebinarJam only}
+      - {name: timezone, type: string}
+      - {name: registration_url, type: string}
+      - {name: registration_type, type: string, enum: [paid, free]}
+      - {name: registration_fee, type: integer}
+      - {name: registration_currency, type: string, conditional: true}
+      - {name: registration_checkout_url, type: string, conditional: true}
+      - {name: registration_post_payment_url, type: string, conditional: true}
+      - {name: direct_live_room_url, type: string, conditional: true}
+      - {name: direct_replay_room_url, type: string, conditional: true}
+    operations:
+      - POST /webinarjam/webinars
+      - POST /webinarjam/webinar
+      - POST /everwebinar/webinars
+      - POST /everwebinar/webinar
+  - name: Schedule
+    id_field: schedule
+    id_type: integer
+    parent: Webinar
+    fields:
+      - {name: schedule, type: integer, note: schedule id}
+      - {name: date, type: string, format: "YYYY-MM-DD HH:MM"}
+      - {name: comment, type: string, note: human-readable schedule description}
+    caveats:
+      - >-
+        The schedule id returned by the API does NOT match the schedule id shown in the
+        Schedules tab of the webinar settings UI. Always use the API-returned value.
+      - >-
+        A single schedule id can represent an entire SERIES; individual sessions inside a series
+        share it. Use the `date` value to pinpoint a session.
+  - name: Presenter
+    parent: Webinar
+    fields:
+      - {name: name, type: string}
+      - {name: email, type: string}
+      - {name: picture, type: string, format: url}
+  - name: CustomField
+    parent: Webinar
+    fields:
+      - {name: label, type: string, note: doubles as the parameter name on the register call}
+      - {name: type, type: string, enum: [Text Field, Dropdown]}
+      - {name: answer_id, type: string, note: dropdown options only; multi-select passes an array of ids}
+    docs: https://support.webinarjam.com/en/articles/15370148-pass-custom-field-values-in-the-registration-api
+  - name: Registrant
+    aliases: [Lead, Attendee, User]
+    id_fields:
+      - {name: user_id, type: integer, returned_by: register}
+      - {name: lead_id, type: integer, consumed_by: unsubscribe}
+    id_caveat: >-
+      The register operation returns `user_id`; the unsubscribe operation consumes `lead_id`,
+      which the docs say must come from the registrants listing. The provider never states
+      whether the two are the same identifier — an agent must not assume they are.
+    fields:
+      - {name: first_name, type: string}
+      - {name: last_name, type: string, conditional: true}
+      - {name: email, type: string}
+      - {name: phone_country_code, type: string, conditional: true}
+      - {name: phone, type: string, conditional: true}
+      - {name: password, type: string, conditional: true, note: attendee's unique room password}
+      - {name: ip, type: string}
+      - {name: schedule, type: integer}
+      - {name: date, type: string}
+      - {name: timezone, type: string}
+      - {name: signup_date, type: integer}
+      - {name: attended_live, type: integer}
+      - {name: date_live, type: integer}
+      - {name: entered_live, type: string}
+      - {name: time_live, type: string}
+      - {name: purchased_live, type: integer}
+      - {name: revenue_live, type: string}
+      - {name: attended_replay, type: integer}
+      - {name: date_replay, type: integer}
+      - {name: time_replay, type: string}
+      - {name: purchased_replay, type: integer}
+      - {name: revenue_replay, type: string}
+      - {name: subscribed, type: integer}
+      - {name: gdpr_status, type: integer}
+      - {name: gdpr_communications, type: integer}
+      - {name: gdpr_status_date, type: integer}
+      - {name: gdpr_status_ip, type: string}
+      - {name: twilio_consented_at, type: integer}
+      - {name: utm_source, type: string}
+      - {name: utm_medium, type: string}
+      - {name: utm_campaign, type: string}
+      - {name: utm_term, type: string}
+      - {name: utm_content, type: string}
+      - {name: live_room, type: string, format: url, note: per-attendee}
+      - {name: replay_room, type: string, format: url, note: per-attendee}
+      - {name: thank_you_url, type: string, format: url, note: per-attendee, returned_by: register}
+      - {name: unsubscribe, type: string, format: url}
+    pii: >-
+      This entity is dense PII — name, email, phone, IP address, GDPR consent state and consent
+      IP, SMS consent timestamp, purchase revenue and per-attendee secret room URLs. Any agent
+      or integration reading /registrants is handling personal data under GDPR.
+  - name: Country
+    fields:
+      - {name: country_id, type: integer}
+      - {name: country_name, type: string}
+  - name: State
+    parent: Country
+    fields:
+      - {name: state_id, type: integer}
+      - {name: state_name, type: string}
+    docs: https://support.webinarjam.com/en/articles/15370147-get-a-list-of-countries-and-states-provinces
+relationships:
+  - {from: Webinar, to: Schedule, type: has_many, via: schedules}
+  - {from: Webinar, to: Presenter, type: has_many, via: presenters}
+  - {from: Webinar, to: CustomField, type: has_many, via: custom fields in the webinar detail response}
+  - {from: Webinar, to: Registrant, type: has_many, via: webinar_id}
+  - {from: Registrant, to: Schedule, type: belongs_to, via: schedule}
+  - {from: Registrant, to: Webinar, type: belongs_to, via: webinar_id}
+  - {from: Registrant, to: Country, type: belongs_to, via: country}
+  - {from: Registrant, to: State, type: belongs_to, via: state}
+  - {from: State, to: Country, type: belongs_to, via: country_id}
+call_ordering:
+  note: >-
+    The model forces a strict read-before-write chain, which is the practical shape an agent
+    must follow.
+  chains:
+    - flow: register an attendee
+      steps: >-
+        list webinars -> get webinar (for schedule id + custom field labels) -> [optional]
+        list countries/states -> register
+    - flow: unsubscribe a lead
+      steps: >-
+        get webinar -> list registrants (for lead_id) -> unsubscribe
+product_split:
+  webinarjam:
+    base: https://api.webinarjam.com/webinarjam
+    extra_fields: [type]
+  everwebinar:
+    base: https://api.webinarjam.com/everwebinar
+    extra_request_params: [timezone, date]
+    note: >-
+      EverWebinar's webinar object omits `type` and returns an empty `schedules` array for
+      right-now sessions; its register operation adds `timezone` (GMT offset form) and `date`.

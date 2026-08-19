@@ -1,0 +1,54 @@
+generated: '2026-08-13'
+method: probed
+source: live probes of the WebinarJam website, API and documentation hosts
+note: >-
+  Every /.well-known/ path was probed on all three WebinarJam hosts and NONE returned a
+  document. www.webinarjam.com and documentation.webinarjam.com answer 404 for every path
+  (the WordPress / help-center 404 template), and api.webinarjam.com answers 403 Forbidden
+  for the whole /.well-known/ namespace including a negative-control path that cannot exist.
+  No WellKnown or SecurityTxt pointer is emitted in apis.yml because no path served a real
+  document — this file records a verified ABSENCE, not a presence.
+negative_control:
+  path: /.well-known/kinlane-nonexistent-probe
+  results:
+    - host: www.webinarjam.com
+      status: 404
+    - host: api.webinarjam.com
+      status: 403
+    - host: documentation.webinarjam.com
+      status: 404
+  interpretation: >-
+    api.webinarjam.com returns 403 for every /.well-known/ path, so a 403 there is a blanket
+    deny rule and never evidence of a document. No host returned a soft-200.
+hosts:
+  - host: https://www.webinarjam.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://api.webinarjam.com
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/oauth-protected-resource, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+  - host: https://documentation.webinarjam.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+found: 0

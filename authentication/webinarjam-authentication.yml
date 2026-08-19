@@ -1,0 +1,60 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+docs: https://support.webinarjam.com/en/collections/19655440-api-general
+note: >-
+  Derived by hand from the provider's own help-center reference, not from an OpenAPI —
+  WebinarJam publishes no machine-readable specification. Every field below is stated in
+  the WebinarJam / EverWebinar developer articles.
+summary:
+  types: [apiKey]
+  api_key_in: [body]
+  oauth2_flows: []
+  approval_required: true
+  transport_security: TLS required
+schemes:
+  - name: api_key
+    type: apiKey
+    in: body
+    parameter: api_key
+    format: string(64)
+    description: >-
+      A single account-wide 64-character API key, transmitted as a form field named
+      "api_key" in the body of every POST request. The key is identical for WebinarJam
+      and EverWebinar and does not change per webinar.
+    sources:
+      - https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+      - https://support.webinarjam.com/en/articles/15370149-retrieve-a-full-list-of-all-webinars-published-in-your-account-webinarjam-api
+onboarding:
+  model: request-approval
+  steps:
+    - Hold a paid WebinarJam or EverWebinar subscription; trial accounts must upgrade first.
+    - Open Profile > API in the account dashboard and complete the API application form
+      (app URL, intended use, whether the app subscribes users, supporting notes).
+    - Wait for review — the provider states requests are typically processed within two
+      business days.
+    - Retrieve the issued key from the Webinars dashboard under Advanced > API custom integration.
+  docs:
+    apply: https://support.webinarjam.com/en/articles/15370143-apply-for-an-api-key-for-webinarjam-or-everwebinar
+    locate: https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+    regenerate: https://support.webinarjam.com/en/articles/15370145-regenerate-a-webinarjam-everwebinar-api-key
+  scope: >-
+    One set of API credentials is generated per account and grants access to BOTH the
+    WebinarJam and the EverWebinar API.
+key_management:
+  rotation: >-
+    The key can be regenerated from the account profile; the provider documents regeneration
+    as an explicit self-service action.
+  granularity: account-wide (no per-webinar, per-user or per-environment keys)
+  scopes: none — the key is unscoped; there is no OAuth, no permission model and no
+    read-only variant, so any approved integration holds full account authority.
+transport:
+  tls_required: true
+  note: >-
+    "Connections to the API server must be secured with SSL. Non-SSL connections will be
+    dropped." — https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+gaps:
+  - No OAuth 2.0, OpenID Connect or token-exchange surface is published.
+  - The credential travels in the request BODY rather than an Authorization header, so it
+    lands in application logs and proxy request bodies more readily than a header credential.
+  - No scopes, so a delegated or agent integration cannot be granted less than full account access.

@@ -1,0 +1,45 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+limit_count: 1
+applies_to:
+  - WebinarJam API (https://api.webinarjam.com/webinarjam)
+  - EverWebinar API (https://api.webinarjam.com/everwebinar)
+limits:
+  - name: global-per-user
+    scope: per-user
+    window: 1s
+    limit: 20
+    unit: requests
+    burst: null
+    enforcement: hardcoded
+    exhaustion_status: 429
+    description: >-
+      "The WebinarJam and EverWebinar API systems have a hardcoded limit of 20 API calls
+      per second per user." Exceeding it returns a 429 (Too many requests) error.
+    source: https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+response_headers:
+  documented: false
+  note: >-
+    WebinarJam documents NO rate-limit response headers — no X-RateLimit-*, no RateLimit-*,
+    and no Retry-After. An agent therefore has no runtime signal for remaining quota or
+    reset time and can only discover the ceiling by being rejected. This is the material
+    gap: the number is published, the signal is not.
+  checked:
+    - X-RateLimit-Limit
+    - X-RateLimit-Remaining
+    - X-RateLimit-Reset
+    - RateLimit-Limit
+    - RateLimit-Remaining
+    - RateLimit-Reset
+    - Retry-After
+guidance:
+  provider_recommendation: >-
+    "Implement your scripts in a queue system that throttles all outbound API calls to a
+    maximum rate of 20 calls per second... this will queue the outbound calls and process
+    them in a first-in-first-out order without exceeding the limit."
+  source: https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api
+x-evidence:
+  - url: https://support.webinarjam.com/en/articles/15370144-connect-to-webinarjam-or-everwebinar-api.md
+    status: 200
+    fetched: '2026-08-13'

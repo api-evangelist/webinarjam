@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.webinarjam.com/en/collections/19655423-developer-api
+note: >-
+  Cross-cutting request/response semantics read from the WebinarJam / EverWebinar developer
+  articles. There is no OpenAPI to derive from, so every entry cites the article that states it.
+  Where a convention is ABSENT that absence is recorded explicitly rather than left blank.
+authentication:
+  style: api-key-in-body
+  parameter: api_key
+  detail: see authentication/webinarjam-authentication.yml
+transport:
+  protocol: https-only
+  note: Non-SSL connections are dropped.
+request:
+  http_methods: [POST]
+  note: >-
+    EVERY documented operation is POST, including the read operations (list webinars, get
+    webinar, list registrants). There are no GET endpoints; a GET against a documented path
+    returns 405 Method Not Allowed. This is the single most important convention for an
+    agent to know, because it inverts the usual REST mapping — a "read" here is a POST.
+  content_type: application/x-www-form-urlencoded
+  content_type_evidence: >-
+    Every published example uses `curl --data "api_key=...&webinar_id=..."`, which sends
+    application/x-www-form-urlencoded.
+  path_style: /{product}/{resource} where product is `webinarjam` or `everwebinar`
+response:
+  content_type: application/json
+  envelope:
+    status_field: status
+    success_value: success
+    payload_key: varies by operation — `webinars`, `webinar`, `user`
+    example: '{"status": "success", "webinars": [ ... ]}'
+  empty_success: >-
+    The unsubscribe operation returns 204 No Content on success rather than the JSON envelope.
+pagination:
+  style: page-number
+  supported_on: [registrants]
+  request_params:
+    - name: page
+      type: int
+      minimum: 1
+  response_fields: none documented
+  note: >-
+    Pagination exists ONLY on the registrants/attendees listing and is a bare page number.
+    No page size parameter, no total count, no next/prev cursor and no link header are
+    documented, so a client cannot tell when it has reached the last page except by
+    receiving an empty result.
+filtering:
+  supported_on: [registrants]
+  params:
+    - {name: schedule_id, type: int}
+    - {name: attended_live, type: int, range: 0-4}
+    - {name: attended_replay, type: int, range: 0-4}
+    - {name: purchased, type: int, range: 0-2}
+    - {name: attended_live_timestamp, type: int, unit: seconds}
+    - {name: attended_replay_timestamp, type: int, unit: seconds}
+    - {name: date_range, type: int, range: 0-8}
+    - {name: search, type: string}
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency key, request-deduplication header or retry-safe contract is documented
+    anywhere in the developer articles. The register operation is the mutating call most
+    likely to be retried and it carries no idempotency guarantee. NO `Idempotency` pointer
+    is emitted in apis.yml because the provider does not support it.
+field_expansion:
+  supported: false
+  note: >-
+    Several response fields (registration_currency, registration_checkout_url,
+    direct_live_room_url, phone, password, last_name) are returned CONDITIONALLY — only when
+    the corresponding option is enabled in that webinar's configuration. This is
+    configuration-dependent shape rather than client-controlled expansion, and it means a
+    consumer cannot rely on a fixed response schema across webinars.
+custom_fields:
+  supported: true
+  mechanism: >-
+    Custom registration fields are passed to the register operation using the field LABEL as
+    the parameter name (e.g. "whereDidYouHearAboutUs"). Dropdown fields take the answer
+    option ID, or an array of IDs for multi-select. The labels and option IDs must first be
+    read from the get-webinar operation.
+  docs: https://support.webinarjam.com/en/articles/15370148-pass-custom-field-values-in-the-registration-api
+request_tracing:
+  request_id_header: none documented
+versioning:
+  scheme: none documented
+  note: >-
+    No version appears in the path, in a header, or as a date. The base paths are
+    /webinarjam and /everwebinar with no version segment, so there is no way for a client to
+    pin a contract version. See lifecycle/webinarjam-lifecycle.yml.
+error_envelope:
+  format: not RFC 9457
+  documented_statuses: [429, 204]
+  detail: see errors/webinarjam-problem-types.yml
+rate_limit_signaling:
+  limit: 20 requests/second per user
+  headers: none documented
+  detail: see rate-limits/webinarjam-rate-limits.yml
+cross_links:
+  authentication: authentication/webinarjam-authentication.yml
+  errors: errors/webinarjam-problem-types.yml
+  lifecycle: lifecycle/webinarjam-lifecycle.yml
+  rate_limits: rate-limits/webinarjam-rate-limits.yml
+  data_model: data-model/webinarjam-data-model.yml

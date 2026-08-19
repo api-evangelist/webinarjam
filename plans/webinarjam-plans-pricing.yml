@@ -1,0 +1,107 @@
+generated: '2026-08-13'
+method: searched
+source: https://webinarjam.com/pricing/
+vendor: Genesis Digital LLC
+currency: USD
+plan_count: 5
+api_access_note: >-
+  API access is NOT a plan feature line item. The provider states separately that "API access
+  is available for paid subscribers only" and that approval is required, so no tier below
+  grants API access automatically — a paid subscriber must additionally apply and be approved.
+  Source: https://support.webinarjam.com/en/articles/15370143-apply-for-an-api-key-for-webinarjam-or-everwebinar
+trial:
+  type: paid-trial
+  price: 1
+  currency: USD
+  period: 14 days
+  attendees: 500
+  note: >-
+    "Try us for free for 14 days" is the marketing copy, but the trial tier is listed at $1
+    for 14 days at the Basic (500 attendee) capacity. 30-day money-back guarantee on paid plans.
+plans:
+  - name: Basic Trial
+    price_monthly: 1
+    price_annual: null
+    currency: USD
+    billing_period: one-time (14 days)
+    limits:
+      attendees_per_webinar: 500
+      max_duration_hours: 2
+      hosts_included: 2
+      additional_team_members: 5
+      webinars: unlimited
+    includes:
+      - EverWebinar (automated webinars)
+    api_access: false
+    note: Trial accounts must upgrade to a paid plan before applying for an API key.
+  - name: Starter
+    price_monthly: 49
+    price_annual_monthly_equivalent: 39
+    annual_saving: 120
+    currency: USD
+    billing_period: month
+    limits:
+      attendees_per_webinar: 100
+      max_duration_hours: 1
+      hosts_included: 1
+      additional_team_members: 1
+      webinars: unlimited
+    includes: []
+    api_access: on-approval
+  - name: Basic
+    price_monthly: 99
+    price_annual_monthly_equivalent: 79
+    annual_saving: 240
+    currency: USD
+    billing_period: month
+    most_popular: true
+    limits:
+      attendees_per_webinar: 500
+      max_duration_hours: 2
+      hosts_included: 2
+      additional_team_members: 5
+      webinars: unlimited
+    includes:
+      - EverWebinar (automated webinars) at no additional cost
+    api_access: on-approval
+  - name: Professional
+    price_monthly: 299
+    price_annual_monthly_equivalent: 229
+    annual_saving: 840
+    currency: USD
+    billing_period: month
+    limits:
+      attendees_per_webinar: 2000
+      max_duration_hours: 3
+      hosts_included: 4
+      additional_team_members: 10
+      webinars: unlimited
+    includes:
+      - EverWebinar (automated webinars) at no additional cost
+    api_access: on-approval
+  - name: Enterprise
+    price_monthly: 499
+    price_annual_monthly_equivalent: 379
+    annual_saving: 1440
+    currency: USD
+    billing_period: month
+    limits:
+      attendees_per_webinar: 5000
+      max_duration_hours: 4
+      hosts_included: 6
+      additional_team_members: 25
+      webinars: unlimited
+    includes:
+      - EverWebinar (automated webinars) at no additional cost
+    api_access: on-approval
+overage:
+  documented: false
+  note: >-
+    No overage pricing is published. Attendee capacity is a hard ceiling per tier; the
+    provider directs customers to upgrade to the next tier instead.
+refunds:
+  money_back_guarantee_days: 30
+x-evidence:
+  - url: https://webinarjam.com/pricing/
+    status: 200
+    fetched: '2026-08-13'

@@ -1,0 +1,75 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.webinarjam.com/en/articles/15370084-connect-and-use-a-custom-webhook
+spec_type: none
+spec_note: >-
+  WebinarJam publishes NO AsyncAPI document and no event schema. It does ship a real,
+  configurable outbound webhook surface, captured below. Type `Webhooks` is wired in
+  apis.yml; type `AsyncAPI` is NOT, because no AsyncAPI exists and fabricating one would
+  misrepresent the provider.
+surface:
+  direction: outbound
+  name: Custom Webhook
+  applies_to: [WebinarJam, EverWebinar]
+  configuration:
+    account_level: Profile > Integrations > Autoresponder > Custom Webhook
+    webinar_level: Edit webinar > Integrations tab > Custom Webhook
+  base_url:
+    configurable: true
+    description: >-
+      The integrator sets a base webhook URL as the default destination. Individual
+      automation rules may append a path to that base or specify a completely different
+      full URL, including a different domain.
+  authentication:
+    modes:
+      - mode: none
+        description: Leave authentication unconfigured when the endpoint requires none.
+      - mode: bearer-token
+        description: >-
+          A token supplied by the integrator is sent as an Authorization header on every
+          webhook request.
+      - mode: custom-header
+        description: >-
+          An integrator-specified header name and value is sent on every webhook request.
+    note: >-
+      Authentication is on the RECEIVING side — WebinarJam authenticates itself to the
+      integrator's endpoint. No request signing, no shared-secret HMAC and no timestamp
+      replay protection is documented, so a receiver cannot cryptographically verify that
+      a delivery originated from WebinarJam.
+  triggers:
+    model: automation rules
+    description: >-
+      Each rule pairs a trigger condition with a destination URL, so different events can be
+      routed to different endpoints. Triggers are chosen in the webinar's Integrations tab.
+    documented_examples:
+      - a user registering for a webinar
+      - a user attending a webinar
+    catalogue_published: false
+    note: >-
+      The provider does NOT publish an enumerated trigger/event catalogue, so the full set of
+      conditions is only visible inside the account UI.
+  payload:
+    schema_published: false
+    description: >-
+      Described only as "registrant data". No field list, no example payload and no schema
+      is published.
+  delivery:
+    retries: not documented
+    ordering: not documented
+    signing: not documented
+related_surfaces:
+  - name: Zapier
+    url: https://support.webinarjam.com/en/articles/15370082-connect-and-use-zapier
+    note: Native Zapier integration, an alternative event path for non-developers.
+  - name: Native autoresponder / CRM integrations
+    url: https://support.webinarjam.com/en/articles/15370078-connect-an-autoresponder-or-crm
+gaps:
+  - No AsyncAPI or other machine-readable event contract.
+  - No published event/trigger catalogue.
+  - No payload schema or example.
+  - No webhook signature verification.
+  - No retry or delivery-guarantee documentation.
+x-evidence:
+  - url: https://support.webinarjam.com/en/articles/15370084-connect-and-use-a-custom-webhook.md
+    status: 200
+    fetched: '2026-08-13'

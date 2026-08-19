@@ -1,0 +1,27 @@
+generated: '2026-08-13'
+method: generated
+source: https://support.webinarjam.com/en/collections/19655423-developer-api
+note: >-
+  WebinarJam publishes no OpenAPI, so these skills are grounded in the operations, parameters
+  and response fields transcribed verbatim from the provider's own developer articles rather
+  than in operationIds greppable from a spec. No operation, parameter or field appears in a
+  skill that is not stated in a cited WebinarJam help-centre article. The provider publishes
+  no AGENTS.md or first-party skill files.
+skills:
+  - file: webinarjam-register-attendee.md
+    name: Register an attendee for a WebinarJam or EverWebinar webinar
+    api: WebinarJam / EverWebinar API
+    operations:
+      - POST /webinarjam/webinars
+      - POST /webinarjam/webinar
+      - POST /webinarjam/register
+      - POST /api/webinarjam/countries
+    docs: https://support.webinarjam.com/en/articles/15370151-register-a-user-to-a-webinar-webinarjam-api
+  - file: webinarjam-export-and-unsubscribe.md
+    name: Export registrants and unsubscribe leads
+    api: WebinarJam / EverWebinar API
+    operations:
+      - POST /webinarjam/webinar
+      - POST /webinarjam/registrants
+      - POST /webinarjam/unsubscribe
+    docs: https://support.webinarjam.com/en/articles/15370152-get-a-list-of-registrants-and-attendees-webinarjam-api

@@ -1,0 +1,85 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: https://support.webinarjam.com/en/collections/19655423-developer-api
+note: >-
+  WebinarJam ships NO MCP server — hosted or stdio. Searched the developer help centre, npm,
+  the MCP registry namespace and GitHub; nothing exists. The tools below are a CANDIDATE
+  mapping derived from the eleven operations WebinarJam documents in its own help centre, so
+  that the agent-facing shape of this API is recorded. NO `MCPServer` pointer is emitted in
+  apis.yml, because emitting one would assert an agent surface the provider does not serve.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+server:
+  name: webinarjam
+  transport: null
+  url: null
+tools:
+  - name: list_webinarjam_webinars
+    description: Retrieve every webinar published in the WebinarJam account.
+    source_operation: POST https://api.webinarjam.com/webinarjam/webinars
+    docs: https://support.webinarjam.com/en/articles/15370149-retrieve-a-full-list-of-all-webinars-published-in-your-account-webinarjam-api
+    inputs: [api_key]
+  - name: get_webinarjam_webinar
+    description: Get full detail for one WebinarJam webinar, including schedules, presenters and custom fields.
+    source_operation: POST https://api.webinarjam.com/webinarjam/webinar
+    docs: https://support.webinarjam.com/en/articles/15370150-get-details-about-one-particular-webinar-from-your-account-webinarjam-api
+    inputs: [api_key, webinar_id]
+  - name: register_webinarjam_attendee
+    description: Register a person for a WebinarJam webinar schedule and return their unique room links.
+    source_operation: POST https://api.webinarjam.com/webinarjam/register
+    docs: https://support.webinarjam.com/en/articles/15370151-register-a-user-to-a-webinar-webinarjam-api
+    inputs: [api_key, webinar_id, first_name, email, schedule, last_name, country, state, timezone_id, ip_address, phone_country_code, phone, twilio_consent]
+  - name: list_webinarjam_registrants
+    description: List registrants and attendees for a WebinarJam webinar, filterable by attendance, purchase and date range.
+    source_operation: POST https://api.webinarjam.com/webinarjam/registrants
+    docs: https://support.webinarjam.com/en/articles/15370152-get-a-list-of-registrants-and-attendees-webinarjam-api
+    inputs: [api_key, webinar_id, schedule_id, attended_live, attended_replay, purchased, page, attended_live_timestamp, attended_replay_timestamp, date_range, search]
+  - name: unsubscribe_webinarjam_lead
+    description: Unsubscribe a lead from a WebinarJam webinar's notifications.
+    source_operation: POST https://api.webinarjam.com/webinarjam/unsubscribe
+    docs: https://support.webinarjam.com/en/articles/15370153-unsubscribe-leads-from-a-webinar-webinarjam-api
+    inputs: [api_key, webinar_id, lead_id]
+  - name: list_everwebinar_webinars
+    description: Retrieve every automated webinar published in the EverWebinar account.
+    source_operation: POST https://api.webinarjam.com/everwebinar/webinars
+    docs: https://support.webinarjam.com/en/articles/15370154-retrieve-a-full-list-of-all-webinars-published-in-your-account-everwebinar-api
+    inputs: [api_key]
+  - name: get_everwebinar_webinar
+    description: Get full detail for one EverWebinar automated webinar.
+    source_operation: POST https://api.webinarjam.com/everwebinar/webinar
+    docs: https://support.webinarjam.com/en/articles/15370155-get-details-about-one-particular-webinar-from-your-account-everwebinar-api
+    inputs: [api_key, webinar_id]
+  - name: register_everwebinar_attendee
+    description: Register a person for an EverWebinar automated session, optionally pinned to a specific date.
+    source_operation: POST https://api.webinarjam.com/everwebinar/register
+    docs: https://support.webinarjam.com/en/articles/15370156-register-a-user-to-a-webinar-everwebinar-api
+    inputs: [api_key, webinar_id, first_name, email, schedule, last_name, country, state, timezone_id, ip_address, phone_country_code, phone, twilio_consent, timezone, date]
+  - name: list_everwebinar_registrants
+    description: List registrants and attendees for an EverWebinar automated webinar.
+    source_operation: POST https://api.webinarjam.com/everwebinar/registrants
+    docs: https://support.webinarjam.com/en/articles/15370157-get-a-list-of-registrants-and-attendees-everwebinar-api
+    inputs: [api_key, webinar_id, schedule_id, attended_live, attended_replay, purchased, page, attended_live_timestamp, attended_replay_timestamp, date_range, search]
+  - name: unsubscribe_everwebinar_lead
+    description: Unsubscribe a lead from an EverWebinar webinar's notifications.
+    source_operation: POST https://api.webinarjam.com/everwebinar/unsubscribe
+    docs: https://support.webinarjam.com/en/articles/15370160-unsubscribe-leads-from-a-webinar-everwebinar-api
+    inputs: [api_key, webinar_id, lead_id]
+  - name: list_countries_and_states
+    description: Retrieve the country and state/province reference list used by the register operation.
+    source_operation: POST https://api.webinarjam.com/api/webinarjam/countries
+    docs: https://support.webinarjam.com/en/articles/15370147-get-a-list-of-countries-and-states-provinces
+    inputs: [api_key]
+    note: >-
+      This operation uses a DIFFERENT path prefix from the other ten (/api/webinarjam/... rather
+      than /webinarjam/...), and the article's curl example points at a development host
+      (api.webinarjamdev.com). The path recorded here is the "Complete URL" the article states.
+coverage:
+  documented_operations: 11
+  candidate_tools: 11
+  published_tools: 0
