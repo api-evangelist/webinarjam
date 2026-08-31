@@ -9,6 +9,13 @@
       "method": "feed"
     },
     {
+      "source": "https://support.webinarjam.com/en/feed.xml",
+      "feed_url": "https://support.webinarjam.com/en/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://support.webinarjam.com/en/",
       "feed_url": "https://support.webinarjam.com/en/feed.xml",
       "title": "",
@@ -16,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "fetched": "2026-08-22T20:20:02Z",
-  "post_count": 20
+  "fetched": "2026-08-30T22:33:40Z",
+  "post_count": 45
 }
